@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Currency Converter</title>
+</head>
+<body>
+    <h1>Currency Converter</h1>
+    
+    <div>
+        <label for="amount">Enter Amount:</label>
+        <input type="number" id="amount" placeholder="Enter amount">
+    </div>
+    
+    <div>
+        <label for="fromCurrency">From Currency:</label>
+        <select id="fromCurrency">
+            <option value="CAD">Canadian Dollar (CAD)</option>
+            <option value="XAF">Central African CFA franc (XAF)</option>
+            <option value="NGN">Nigerian Naira (NGN)</option>
+            <option value="USD">US Dollar (USD)</option>
+            <option value="EUR">Euro (EUR)</option>
+            <option value="GBP">British Pound (GBP)</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="toCurrency">To Currency:</label>
+        <select id="toCurrency">
+            <option value="CAD">Canadian Dollar (CAD)</option>
+            <option value="XAF">Central African CFA franc (XAF)</option>
+            <option value="NGN">Nigerian Naira (NGN)</option>
+            <option value="USD">US Dollar (USD)</option>
+            <option value="EUR">Euro (EUR)</option>
+            <option value="GBP">British Pound (GBP)</option>
+        </select>
+    </div>
+    
+    <button onclick="convertCurrency()">Convert</button>
+
+    <p id="result"></p>
+
+    <script>
+        // Define custom exchange rates relative to Canadian Dollar (CAD)
+        const exchangeRates = {
+            CAD: 1.0,    // 1 CAD to CAD (base currency)
+            XAF: 550.24, // 1 XAF to CAD
+            NGN: 108.10, // 1 NGN to CAD
+            USD: 1.26,   // 1 USD to CAD
+            EUR: 1.49,   // 1 EUR to CAD
+            GBP: 1.73    // 1 GBP to CAD
+        };
+
+        function convertCurrency() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
+
+            if (isNaN(amount)) {
+                alert('Please enter a valid amount.');
+                return;
+            }
+
+            if (fromCurrency === toCurrency) {
+                alert('Select different currencies to convert.');
+                return;
+            }
+
+            const convertedAmount = amount * (exchangeRates[toCurrency] / exchangeRates[fromCurrency]);
+
+            document.getElementById('result').textContent = `${amount} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency}`;
+        }
+    </script>
+</body>
+</html>
